@@ -11,10 +11,10 @@ import { usePathname} from 'next/navigation';
 import clsx from 'clsx';
 
 const links = [
-  {name:'Home', href:'/Principal', icon:HomeIcon},
-  { name: 'Calendar', href: '/Principal/Calendar', icon: CalendarIcon },
-  { name: 'User', href: '/Principal/User', icon: UserIcon },
-  { name: 'Config', href: '/Principal/Configuration', icon: Cog6ToothIcon },
+  {name:'Home', href:'/home', icon:HomeIcon},
+  { name: 'Calendar', href: '/home/calendar', icon: CalendarIcon },
+  { name: 'User', href: '/home/user', icon: UserIcon },
+  { name: 'Config', href: '/home/configuration', icon: Cog6ToothIcon },
 
 ];
 
