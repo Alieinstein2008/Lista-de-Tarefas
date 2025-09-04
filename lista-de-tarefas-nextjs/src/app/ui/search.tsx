@@ -5,7 +5,7 @@ export default function Search() {
             <input
                 type="text"
                 placeholder="Pesquisar Tarefa"
-                className="bg-gray-100 rounded-2xl w-6/10 h-8 border-none text-gray-500 text-center"
+                className="bg-gray-100 rounded-2xl w-6/10 h-8 border-none text-gray-500 text-center text-xs"
 
 
             >
