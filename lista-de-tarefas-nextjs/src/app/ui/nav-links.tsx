@@ -30,20 +30,24 @@ export default function NavLinks() {
               href={link.href}
               key={link.name}
               className={clsx(
-                'flex w-full md:justify-center md:p-3.5  hover:bg-gray-100',
-                {'bg-gray-200 text-blue-600 ': pathname === link.href,},
+                'flex flex-col w-full md:justify-center md:p-3.5  hover:bg-gray-50 gap-1.5 items-center',
+                {'bg-gray-100 text-black ': pathname === link.href,},
 
               )}
             >
+              
               <p 
               title={link.name} 
               aria-label={link.name}
               className='md:w-8 md:h-8 w-8 h-8 '
               >
                 <LinkIcon></LinkIcon>
-
+                
               </p>
-    
+              <div className={clsx(
+                '',
+                {'w-3 h-3 bg-blue-600 rounded-full border-cyan-500 border-1  ': pathname === link.href}
+              )}></div>
             </Link>
           )
 

@@ -1,0 +1,79 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+    id       String @id @default(uuid()) //CUID 25char TimeStamps + Counter + Client Fingerprint + Random
+    name     String @db.VarChar(255)
+    email    String @unique @db.VarChar(255)
+    password String @db.VarChar(255)
+
+    tasks      Task[]
+    labels     Label[]
+    priorities Priority[]
+
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    @@map(name: "users")
+}
+
+model Task {
+    //Fields
+    id          String   @id @default(nanoid())
+    description String   @db.VarChar(255)
+    startsIn    DateTime @default(now()) @map(name: "starts_in")
+    expiresIn   DateTime @map(name: "expires_in")
+
+    //Relations
+    author     User     @relation(fields: [userId], references: [id]) //references name 
+    userId     String   @map(name: "user_id")
+    
+    
+    label      Label    @relation(fields: [labelId], references: [id])
+    labelId    String   @map(name: "label_id")
+    priority   Priority @relation(fields: [priorityId], references: [id])
+    priorityId String   @map(name: "priority_id")
+    
+    createdAt  DateTime @default(now()) @map(name: "created_at")
+    updatedAt  DateTime @updatedAt @map(name: "updated_at")
+
+    @@map(name: "tasks")
+}
+
+model Label {
+    id    String @id @default(nanoid())
+    title String
+
+    tasks Task[]
+
+    author User   @relation(fields: [userId], references: [id]) //references name 
+    userId String @map(name: "user_id")
+
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    @@map("labels")
+}
+
+model Priority {
+    id    String @id @default(nanoid())
+    tag   String
+    color String
+
+    task Task[]
+
+    author User   @relation(fields: [userId], references: [id]) //references name 
+    userId String @map(name: "user_id")
+
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    @@map(name: "priorities")
+}
