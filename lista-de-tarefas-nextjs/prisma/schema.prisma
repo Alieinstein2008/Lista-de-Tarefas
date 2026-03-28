@@ -1,79 +1,60 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("DATABASE_URL_UNPOOLED")
+  provider = "postgresql"
 }
 
 model User {
-    id       String @id @default(uuid()) //CUID 25char TimeStamps + Counter + Client Fingerprint + Random
-    name     String @db.VarChar(255)
-    email    String @unique @db.VarChar(255)
-    password String @db.VarChar(255)
-
-    tasks      Task[]
-    labels     Label[]
-    priorities Priority[]
-
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-    @@map(name: "users")
-}
-
-model Task {
-    //Fields
-    id          String   @id @default(nanoid())
-    description String   @db.VarChar(255)
-    startsIn    DateTime @default(now()) @map(name: "starts_in")
-    expiresIn   DateTime @map(name: "expires_in")
-
-    //Relations
-    author     User     @relation(fields: [userId], references: [id]) //references name 
-    userId     String   @map(name: "user_id")
-    
-    
-    label      Label    @relation(fields: [labelId], references: [id])
-    labelId    String   @map(name: "label_id")
-    priority   Priority @relation(fields: [priorityId], references: [id])
-    priorityId String   @map(name: "priority_id")
-    
-    createdAt  DateTime @default(now()) @map(name: "created_at")
-    updatedAt  DateTime @updatedAt @map(name: "updated_at")
-
-    @@map(name: "tasks")
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  public_id  String     @unique @db.VarChar(30)
+  name       String     @db.VarChar(255)
+  email      String     @unique @db.VarChar(255)
+  password   String     @db.VarChar(255)
+  created_at DateTime   @default(now())
+  updated_at DateTime
+  label      Label[]
+  priority   Priority[]
+  task       Task[]
 }
 
 model Label {
-    id    String @id @default(nanoid())
-    title String
-
-    tasks Task[]
-
-    author User   @relation(fields: [userId], references: [id]) //references name 
-    userId String @map(name: "user_id")
-
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-    @@map("labels")
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  public_id  String   @unique @db.VarChar(30)
+  title      String
+  user_id    String   @db.Uuid
+  created_at DateTime @default(now())
+  updated_at DateTime
+  user       User     @relation(fields: [user_id], references: [id])
+  task       Task[]
 }
 
 model Priority {
-    id    String @id @default(nanoid())
-    tag   String
-    color String
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  public_id  String   @unique @db.VarChar(30)
+  tag        String
+  color      String
+  user_id    String   @db.Uuid
+  created_at DateTime @default(now())
+  updated_at DateTime
+  user       User     @relation(fields: [user_id], references: [id])
+  task       Task[]
+}
 
-    task Task[]
-
-    author User   @relation(fields: [userId], references: [id]) //references name 
-    userId String @map(name: "user_id")
-
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-    @@map(name: "priorities")
+model Task {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  public_id   String   @unique @db.VarChar(30)
+  description String   @db.VarChar(255)
+  starts_in   DateTime @default(now())
+  expires_in  DateTime
+  user_id     String   @db.Uuid
+  label_id    String   @db.Uuid
+  priority_id String   @db.Uuid
+  created_at  DateTime @default(now())
+  updated_at  DateTime
+  label       Label    @relation(fields: [label_id], references: [id])
+  priority    Priority @relation(fields: [priority_id], references: [id])
+  user        User     @relation(fields: [user_id], references: [id])
 }
