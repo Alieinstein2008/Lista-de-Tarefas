@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 export default function Searchbar() {
     return (
-       <Field className={`${poppins.className} w-1/5 justify-self-end mt-2.5  `}>
+       <Field className={`${poppins.className} w-1/5 justify-self-end`}>
             <ButtonGroup>
                 <Input id="search-group" placeholder="Pesquisar Tarefas"></Input>
                 <Button variant={'outline'}>
