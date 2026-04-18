@@ -1,10 +1,11 @@
-import Board from "../ui/board";
-import Topbar from "../ui/topbar";
+import Canva from "../ui/Canva";
+import Topbar from "../ui/Topbar";
+
 export default function Page(){
     return(
-        <main className="w-full h-dvh overflow-hidden">
+        <main className="w-full h-screen overflow-hidden">
             <Topbar></Topbar>
-            <Board taskQuantity={0}></Board>
+            <Canva></Canva>
         </main>
     );
 }
