@@ -1,4 +1,4 @@
-import LoginForm from "../ui/login-form";
+import LoginForm from "../ui/LoginForm";
 export default function Page(){
     return(
         <main className="md:w-full md:h-full text-black">
