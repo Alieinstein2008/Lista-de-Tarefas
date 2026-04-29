@@ -1,8 +1,8 @@
 import NavLinks from "./nav-links"
-import {ArrowRightStartOnRectangleIcon} from '@heroicons/react/24/outline';
+import {LogOut} from "lucide-react";
 
 export default function SideNav(){
-    const ExitIcon = ArrowRightStartOnRectangleIcon;
+    const LogOutIcon = LogOut;
     return(
         <div className="flex flex-row md:flex-col w-full bg-white h-12 md:h-full border-r-2 border-r-gray-400 items-center text-gray-400">
             <div 
@@ -14,7 +14,7 @@ export default function SideNav(){
             <NavLinks></NavLinks>
             <div className=" md:flex md:justify-center pt-5 pb-5 pl-5 pr-5 mt-[100%] mb-12">
                 <button title={'Logout'} className="cursor-pointer hover:text-black">
-                    <ExitIcon className="md:w-8.5 md:h-8.5"></ExitIcon>
+                    <LogOutIcon className="md:w-8.5 md:h-8.5"></LogOutIcon>
                 </button>
             </div>
 
