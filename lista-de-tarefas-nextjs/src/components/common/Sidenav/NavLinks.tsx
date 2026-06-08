@@ -1,29 +1,16 @@
 'use client';
-import {
-  HomeIcon,
-  UserIcon,
-  Cog6ToothIcon,
-  CalendarIcon,
-} from '@heroicons/react/24/outline';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-
-const links = [
-  { name: 'Home', href: '/home', icon: HomeIcon },
-  { name: 'Calendar', href: '/home/calendar', icon: CalendarIcon },
-  { name: 'User', href: '/home/user', icon: UserIcon },
-  { name: 'Config', href: '/home/configuration', icon: Cog6ToothIcon },
-
-];
+import { SIDENAV_LINKS } from './constants';
 
 export default function NavLinks() {
   const pathname = usePathname();
   return (
     <>
       {
-        links.map((link) => {
+        SIDENAV_LINKS.map((link) => {
           const LinkIcon = link.icon;
           return (
             <Link
@@ -41,7 +28,7 @@ export default function NavLinks() {
                 aria-label={link.name}
                 className='md:w-10 md:h-10 w-10 h-10 flex flex-col justify-center align-middle items-center '
               >
-                <LinkIcon className={
+                <LinkIcon size={30} className={
                   clsx(
                     'hover:-translate-y-0.5',
                     { 'transition delay-500 linear -translate-y-2.5': pathname === link.href }
