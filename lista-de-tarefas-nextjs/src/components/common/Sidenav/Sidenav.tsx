@@ -1,4 +1,4 @@
-import NavLinks from "./nav-links"
+import NavLinks from "./NavLinks"
 import {LogOut} from "lucide-react";
 
 export default function SideNav(){
